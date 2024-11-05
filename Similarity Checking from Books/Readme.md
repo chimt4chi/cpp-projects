@@ -1,4 +1,4 @@
-# Textbook Similarity Analysis
+# Project I: Similarity Checking from Books
 
 This program calculates and displays the similarity between multiple text files (textbooks) in a specified directory by analyzing their word frequencies and comparing them. The program uses a similarity index based on the frequency distribution of words after normalizing and removing common stopwords.
 
@@ -29,6 +29,12 @@ This program calculates and displays the similarity between multiple text files 
 
    ```bash
    ./TextbookSimilarity
+   ```
+
+5. You can also run the program without compiling:
+
+   ```bash
+   ./book.exe
    ```
 
 ## How It Works
