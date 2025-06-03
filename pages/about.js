@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import "../styles/global.css";
+// import "../styles/global.css";
 
 export default function About() {
   return (

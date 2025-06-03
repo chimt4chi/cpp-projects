@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import "../styles/global.css";
+// import "../styles/global.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function Home() {
