@@ -2,7 +2,6 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link"; // ✅ Needed for navigation
-// import "../../styles/global.css";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

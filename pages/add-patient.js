@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import "../styles/global.css";
 import Navbar from "@/components/Navbar";
 import { getSession } from "next-auth/react";
 
