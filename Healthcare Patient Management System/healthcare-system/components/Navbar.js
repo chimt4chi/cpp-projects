@@ -7,7 +7,9 @@ export default function Navbar() {
   const router = useRouter();
 
   const navLinks = [
-    { href: "/", label: "Home" },
+    // { href: "/", label: "Home" },
+    { href: "/appointment", label: "Book Appointment" },
+    { href: "/", label: "Specialities" }, // need to be a dropdown
     { href: "/add-patient", label: "Add Patient" },
     { href: "/search", label: "Search Patients" },
     { href: "/profile", label: "Profile" },
