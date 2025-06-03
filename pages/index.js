@@ -48,7 +48,7 @@ export default function Home() {
             </a>
 
             <a
-              href="/emergency"
+              href="/"
               className="px-8 py-4 border-2 border-red-500 text-red-600 rounded-full font-semibold text-lg hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center gap-2"
             >
               <i className="fas fa-ambulance"></i>
@@ -85,7 +85,7 @@ export default function Home() {
                 coordination in one unified platform designed for efficiency.
               </p>
               <a
-                href="/patients"
+                href="/"
                 className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -105,7 +105,7 @@ export default function Home() {
                 updates, ensuring continuity of care across all touchpoints.
               </p>
               <a
-                href="/records"
+                href="/"
                 className="inline-flex items-center text-teal-600 font-semibold hover:text-teal-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -125,7 +125,7 @@ export default function Home() {
                 consultations, expanding access to quality healthcare services.
               </p>
               <a
-                href="/telemedicine"
+                href="/"
                 className="inline-flex items-center text-green-600 font-semibold hover:text-green-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -145,7 +145,7 @@ export default function Home() {
                 outcomes, optimize workflows, and improve care quality.
               </p>
               <a
-                href="/analytics"
+                href="/"
                 className="inline-flex items-center text-purple-600 font-semibold hover:text-purple-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -165,7 +165,7 @@ export default function Home() {
                 ensuring the highest standards of data protection.
               </p>
               <a
-                href="/security"
+                href="/"
                 className="inline-flex items-center text-red-600 font-semibold hover:text-red-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -185,7 +185,7 @@ export default function Home() {
                 ensure uninterrupted patient care delivery.
               </p>
               <a
-                href="/support"
+                href="/contact"
                 className="inline-flex items-center text-orange-600 font-semibold hover:text-orange-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
