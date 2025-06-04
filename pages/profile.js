@@ -4,44 +4,67 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Profile() {
-  const { data: session, status } = useSession(); // Get session data
+  const { data: session, status } = useSession();
   const router = useRouter();
-  const [appointments, setAppointments] = useState([]); // State to store appointments
+  const [appointments, setAppointments] = useState([]);
 
-  // Effect to fetch appointments when session is available
   useEffect(() => {
-    if (status === "loading") return; // Prevent action while loading session
+    if (status === "loading") return;
 
     if (!session) {
-      router.push("/auth/login"); // Redirect to login if no session found
+      router.push("/auth/login");
       return;
     }
 
-    // Fetch appointments if user session is available
-    if (session?.user?.id) {
-      const fetchAppointments = async () => {
-        try {
-          const response = await fetch(
-            `/api/appointments?userId=${session.user.id}`
-          );
+    const fetchAppointments = async () => {
+      try {
+        const response = await fetch("/api/appointments");
+        const data = await response.json();
 
-          if (response.ok) {
-            const data = await response.json();
-            if (Array.isArray(data)) {
-              setAppointments(data); // Update state with fetched appointments
-            } else {
-              console.error("Appointments data is not an array:", data);
-            }
-          } else {
-            console.error("Failed to fetch appointments:", response.statusText);
-          }
-        } catch (error) {
-          console.error("Error fetching appointments:", error);
+        if (response.ok && Array.isArray(data.appointments)) {
+          setAppointments(data.appointments);
+        } else {
+          console.error("Unexpected response:", data);
         }
-      };
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      }
+    };
+
+    if (session?.user?.id) {
       fetchAppointments();
     }
-  }, [session, status]); // Re-run when session or status changes
+  }, [session, status]);
+
+  const handleLogout = () => {
+    signOut({ callbackUrl: "/" });
+  };
+
+  const cancelAppointment = async (appointmentId) => {
+    if (!confirm("Are you sure you want to cancel this appointment?")) return;
+
+    try {
+      const response = await fetch(`/api/appointments?id=${appointmentId}`, {
+        method: "DELETE",
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Appointment cancelled successfully.");
+        setAppointments((prev) =>
+          prev.map((appt) =>
+            appt._id === appointmentId ? { ...appt, status: "Cancelled" } : appt
+          )
+        );
+      } else {
+        alert(data.message || "Failed to cancel appointment.");
+      }
+    } catch (error) {
+      console.error("Error cancelling appointment:", error);
+      alert("An error occurred while cancelling the appointment.");
+    }
+  };
 
   if (status === "loading") {
     return (
@@ -51,15 +74,9 @@ export default function Profile() {
     );
   }
 
-  // Handle edge case when user is not logged in (Redirect to login)
   if (!session) {
-    return null; // Redirect happens in useEffect
+    return null;
   }
-
-  // Handle logout
-  const handleLogout = () => {
-    signOut({ callbackUrl: "/" });
-  };
 
   return (
     <>
@@ -75,7 +92,7 @@ export default function Profile() {
           </p>
         </section>
 
-        {/* User Information Section */}
+        {/* User Info */}
         <section className="bg-white p-8 rounded-lg shadow-md mb-8">
           <div className="flex items-center space-x-6">
             <img
@@ -92,52 +109,61 @@ export default function Profile() {
           </div>
         </section>
 
-        {/* Appointments Section */}
+        {/* Appointments */}
         <section className="bg-white p-8 rounded-lg shadow-md mb-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             Your Appointments
           </h2>
 
-          {/* If no appointments */}
           {appointments.length === 0 ? (
             <p className="text-gray-600">
               You don't have any appointments yet.
             </p>
           ) : (
-            <ul className="space-y-4">
+            <ul className="space-y-6">
               {appointments.map((appointment) => (
                 <li
                   key={appointment._id}
-                  className="border-b border-gray-200 pb-4"
+                  className="border-b border-gray-200 pb-4 flex justify-between items-start"
                 >
-                  <h3 className="text-xl font-semibold text-blue-600">
-                    {appointment.appointmentType}
-                  </h3>
-                  <p className="text-gray-600">
-                    Patient: {appointment.patientId?.name}
-                  </p>
-                  <p className="text-gray-600">
-                    Date:{" "}
-                    {new Date(appointment.appointmentDate).toLocaleDateString()}
-                  </p>
-                  <p className="text-gray-600">
-                    Time: {appointment.appointmentTime}
-                  </p>
-                  <p className="text-gray-600">Status: {appointment.status}</p>
+                  <div>
+                    <h3 className="text-xl font-semibold text-blue-600">
+                      {appointment.appointmentType.replace(/_/g, " ")}
+                    </h3>
+                    <p className="text-gray-600">
+                      Patient: {appointment.patientId?.name || "Unknown"}
+                    </p>
+                    <p className="text-gray-600">
+                      Date:{" "}
+                      {new Date(
+                        appointment.appointmentDate
+                      ).toLocaleDateString()}
+                    </p>
+                    <p className="text-gray-600">
+                      Time: {appointment.appointmentTime}
+                    </p>
+                    <p
+                      className={`text-gray-600 capitalize ${
+                        appointment.status === "Cancelled"
+                          ? "text-red-500"
+                          : "text-green-600"
+                      }`}
+                    >
+                      Status: {appointment.status}
+                    </p>
+                  </div>
+                  {appointment.status !== "Cancelled" && (
+                    <button
+                      onClick={() => cancelAppointment(appointment._id)}
+                      className="ml-6 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                    >
+                      Cancel
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
           )}
-        </section>
-
-        {/* Logout Section */}
-        <section className="text-center">
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition duration-300"
-          >
-            Logout
-          </button>
         </section>
       </main>
     </>
