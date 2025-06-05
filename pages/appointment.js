@@ -8,6 +8,10 @@ export default function BookAppointment() {
     name: "",
     email: "",
     phone: "",
+    age: "",
+    gender: "",
+    department: "",
+
     appointmentDate: "",
     appointmentTime: "",
     appointmentType: "",
@@ -42,6 +46,9 @@ export default function BookAppointment() {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
+        age: formData.age,
+        gender: formData.gender,
+        department: formData.department,
         appointmentType: formData.appointmentType,
         appointmentDate: formData.appointmentDate,
         appointmentTime: formData.appointmentTime,
@@ -67,6 +74,8 @@ export default function BookAppointment() {
           name: "",
           email: "",
           phone: "",
+          age: "",
+          gender: "",
           appointmentDate: "",
           appointmentTime: "",
           appointmentType: "",
@@ -138,6 +147,73 @@ export default function BookAppointment() {
               required
               className="w-full mt-2 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
+          </div>
+
+          {/* Age */}
+          <div className="form-group">
+            <label
+              htmlFor="age"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Age
+            </label>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              min={0}
+              required
+              className="w-full mt-2 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+
+          {/* Gender */}
+          <div className="form-group">
+            <label
+              htmlFor="gender"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Gender
+            </label>
+            <select
+              id="gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              required
+              className="w-full mt-2 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          {/* Department */}
+          <div className="form-group">
+            <label
+              htmlFor="department"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Consultation Department
+            </label>
+            <select
+              id="department"
+              name="department"
+              value={formData.department}
+              onChange={handleChange}
+              required
+              className="w-full mt-2 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <option value="">Select Department</option>
+              <option value="cardiology">Cardiology</option>
+              <option value="neurology">Neurology</option>
+              <option value="pediatrics">Pediatrics</option>
+              <option value="orthopedics">Orthopedics</option>
+            </select>
           </div>
 
           {/* Phone */}

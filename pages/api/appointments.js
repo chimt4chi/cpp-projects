@@ -23,6 +23,9 @@ export default async function handler(req, res) {
         name,
         email,
         phone,
+        age,
+        gender,
+        department,
         appointmentType,
         appointmentDate,
         appointmentTime,
@@ -32,6 +35,10 @@ export default async function handler(req, res) {
       if (!userId) missingFields.push("userId");
       if (!name) missingFields.push("name");
       if (!email) missingFields.push("email");
+      if (!age) missingFields.push("age");
+      if (!gender) missingFields.push("gender");
+      if (!department) missingFields.push("department");
+
       if (!appointmentType) missingFields.push("appointmentType");
       if (!appointmentDate) missingFields.push("appointmentDate");
       if (!appointmentTime) missingFields.push("appointmentTime");
@@ -61,6 +68,8 @@ export default async function handler(req, res) {
           patientID,
           name,
           contactInfo: email,
+          age,
+          gender,
         });
         await patient.save();
       }
@@ -71,6 +80,9 @@ export default async function handler(req, res) {
         appointmentType,
         appointmentDate,
         appointmentTime,
+        age,
+        gender,
+        department,
         status: "Scheduled",
       });
 
@@ -86,6 +98,8 @@ export default async function handler(req, res) {
           id: patient._id,
           patientID: patient.patientID,
           name: patient.name,
+          age: patient.age,
+          gender: patient.gender,
         },
       });
     } catch (error) {

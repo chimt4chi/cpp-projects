@@ -1,16 +1,19 @@
 import mongoose from "mongoose";
 
 const PatientSchema = new mongoose.Schema({
-  patientID: { type: String, unique: true, required: true },
-  name: { type: String, required: true },
-  age: { type: Number },
-  gender: { type: String },
-  contactInfo: { type: String },
-  allergies: { type: [String] },
-  medicalHistory: { type: [String] },
-  currentPrescriptions: { type: [String] },
-  doctorNotes: { type: [String] },
-  visitDates: { type: [Date] },
+  patientID: { type: String, unique: true },
+  name: String,
+  contactInfo: String,
+  age: Number, // ✅ Add this
+  gender: {
+    type: String,
+    enum: ["male", "female", "other"], // ✅ Add this
+  },
+  allergies: [String],
+  medicalHistory: [String],
+  currentPrescriptions: [String],
+  doctorNotes: [String],
+  visitDates: [Date],
 });
 
 export default mongoose.models.Patient ||

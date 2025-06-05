@@ -15,6 +15,13 @@ const AppointmentSchema = new mongoose.Schema(
     appointmentType: { type: String, required: true },
     appointmentDate: { type: Date, required: true },
     appointmentTime: { type: String, required: true },
+    age: { type: Number, required: true }, // ✅ NEW
+    gender: {
+      type: String,
+      enum: ["male", "female", "other"],
+      required: true,
+    }, // ✅ NEW
+    department: { type: String, required: true }, // ✅ NEW
     status: {
       type: String,
       enum: ["Scheduled", "Completed", "Cancelled"],
