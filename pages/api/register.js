@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  const { name, email, password } = req.body;
+  const { name, email, password, role = "patient" } = req.body;
 
   if (!name || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
@@ -28,6 +28,7 @@ export default async function handler(req, res) {
       name,
       email,
       password: hashedPassword,
+      role, // ✅ Include role
     });
 
     await newUser.save();

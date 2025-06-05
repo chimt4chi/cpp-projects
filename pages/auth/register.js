@@ -7,6 +7,7 @@ export default function RegisterPage() {
     name: "",
     email: "",
     password: "",
+    role: "patient", // Default role
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -88,6 +89,18 @@ export default function RegisterPage() {
           onChange={handleChange}
           required
         />
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          className="w-full p-3 mb-4 border rounded"
+          required
+        >
+          <option value="patient">Patient</option>
+          <option value="doctor">Doctor</option>
+          <option value="admin">Admin</option>
+        </select>
+
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700"
