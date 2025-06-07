@@ -20,11 +20,11 @@ export default function Navbar() {
     { href: "/speciality", label: "Specialities", roles: ["admin", "guest"] },
     { href: "/add-patient", label: "Add Patient", roles: ["admin", "doctor"] },
     { href: "/search", label: "Search Patients", roles: ["admin", "doctor"] },
-    {
-      href: "/profile",
-      label: "My Profile",
-      roles: ["admin", "doctor", "patient"],
-    },
+    // {
+    //   href: "/profile",
+    //   label: "My Profile",
+    //   roles: ["admin", "doctor", "patient"],
+    // },
   ];
 
   const filteredLinks = navLinks.filter((link) =>
