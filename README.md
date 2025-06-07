@@ -77,7 +77,10 @@ Traditional relational databases often struggle with the variability and volume 
    ```bash
    npm run dev
 
-## Add ```.env.local at root
+## Add 
+```bash
+.env.local at root
+```
 1. MONGODB_URI
 2. NEXTAUTH_SECRET
 3. NEXTAUTH_URL
