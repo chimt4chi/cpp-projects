@@ -48,7 +48,7 @@ export default function Home() {
             </a>
 
             <a
-              href="/"
+              href="#"
               className="px-8 py-4 border-2 border-red-500 text-red-600 rounded-full font-semibold text-lg hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center gap-2"
             >
               <i className="fas fa-ambulance"></i>
@@ -85,7 +85,7 @@ export default function Home() {
                 coordination in one unified platform designed for efficiency.
               </p>
               <a
-                href="/"
+                href="#"
                 className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -105,7 +105,7 @@ export default function Home() {
                 updates, ensuring continuity of care across all touchpoints.
               </p>
               <a
-                href="/"
+                href="#"
                 className="inline-flex items-center text-teal-600 font-semibold hover:text-teal-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -125,7 +125,7 @@ export default function Home() {
                 consultations, expanding access to quality healthcare services.
               </p>
               <a
-                href="/"
+                href="#"
                 className="inline-flex items-center text-green-600 font-semibold hover:text-green-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -145,7 +145,7 @@ export default function Home() {
                 outcomes, optimize workflows, and improve care quality.
               </p>
               <a
-                href="/"
+                href="#"
                 className="inline-flex items-center text-purple-600 font-semibold hover:text-purple-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -165,7 +165,7 @@ export default function Home() {
                 ensuring the highest standards of data protection.
               </p>
               <a
-                href="/"
+                href="#"
                 className="inline-flex items-center text-red-600 font-semibold hover:text-red-800 transition-colors"
               >
                 Learn More <i className="fas fa-arrow-right ml-2"></i>
@@ -362,7 +362,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/appointments"
+                    href="/appointment"
                     className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
                   >
                     <i className="fas fa-calendar w-4"></i> Appointments
@@ -370,7 +370,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/emergency"
+                    href="#"
                     className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
                   >
                     <i className="fas fa-ambulance w-4"></i> Emergency
@@ -418,19 +418,19 @@ export default function Home() {
               </p>
               <div className="flex gap-6 text-sm">
                 <a
-                  href="/privacy"
+                  href="#"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Privacy Policy
                 </a>
                 <a
-                  href="/terms"
+                  href="#"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Terms of Service
                 </a>
                 <a
-                  href="/compliance"
+                  href="#"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Compliance
