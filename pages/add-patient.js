@@ -58,7 +58,10 @@ export default function AddPatient() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          gender: formData.gender.toLowerCase(), // ✅ Convert to lowercase
+        }),
       });
 
       const result = await response.json();
