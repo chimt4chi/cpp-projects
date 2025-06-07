@@ -76,3 +76,8 @@ Traditional relational databases often struggle with the variability and volume 
 4. Run the Next.js development server:
    ```bash
    npm run dev
+
+## Add ```.env.local at root
+1. MONGODB_URI
+2. NEXTAUTH_SECRET
+3. NEXTAUTH_URL
