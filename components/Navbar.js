@@ -4,50 +4,63 @@ import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
-  const { data: session } = useSession(); // 👈 get current session
+  const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const router = useRouter();
 
+  const userRole = session?.user?.role || "guest"; // Default to 'guest' if not logged in
+
   const navLinks = [
-    { href: "/appointment", label: "Book Appointment" },
-    { href: "/speciality", label: "Specialities" },
-    { href: "/add-patient", label: "Add Patient" },
-    { href: "/search", label: "Search Patients" },
+    {
+      href: "/appointment",
+      label: "Book Appointment",
+      roles: ["admin", "doctor", "patient", "guest"],
+    },
+    { href: "/speciality", label: "Specialities", roles: ["admin", "guest"] },
+    { href: "/add-patient", label: "Add Patient", roles: ["admin", "doctor"] },
+    { href: "/search", label: "Search Patients", roles: ["admin", "doctor"] },
+    {
+      href: "/profile",
+      label: "My Profile",
+      roles: ["admin", "doctor", "patient"],
+    },
   ];
+
+  const filteredLinks = navLinks.filter((link) =>
+    link.roles.includes(userRole)
+  );
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleProfileDropdown = () =>
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
-
-  const handleLogout = () => {
-    signOut({ callbackUrl: "/" });
-  };
+  const handleLogout = () => signOut({ callbackUrl: "/" });
 
   return (
     <nav className="bg-gray-800 text-white p-4 shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link legacyBehavior href="/">
-          <a className="text-3xl font-bold text-blue-500 hover:text-blue-400">
-            Healthcare PM
-          </a>
+        <Link
+          href="/"
+          className="text-3xl font-bold text-blue-500 hover:text-blue-400"
+        >
+          Healthcare PM
         </Link>
 
-        {/* Desktop Links */}
+        {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8 items-center">
-          {navLinks.map((link) => (
-            <Link legacyBehavior href={link.href} key={link.href}>
-              <a
-                className={`text-lg hover:text-blue-400 transition ${
-                  router.pathname === link.href ? "text-blue-400" : "text-white"
-                }`}
-              >
-                {link.label}
-              </a>
+          {filteredLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`text-lg hover:text-blue-400 transition ${
+                router.pathname === link.href ? "text-blue-400" : "text-white"
+              }`}
+            >
+              {link.label}
             </Link>
           ))}
 
-          {/* Conditionally render Profile or Login */}
+          {/* Auth Actions */}
           {session ? (
             <div className="relative">
               <button
@@ -58,10 +71,11 @@ export default function Navbar() {
               </button>
               {isProfileDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg py-2 z-50">
-                  <Link legacyBehavior href="/profile">
-                    <a className="block px-4 py-2 hover:bg-gray-200">
-                      My Profile
-                    </a>
+                  <Link
+                    href="/profile"
+                    className="block px-4 py-2 hover:bg-gray-200"
+                  >
+                    My Profile
                   </Link>
                   <button
                     onClick={handleLogout}
@@ -73,8 +87,11 @@ export default function Navbar() {
               )}
             </div>
           ) : (
-            <Link legacyBehavior href="/auth/login">
-              <a className="text-lg hover:text-blue-400 transition">Login</a>
+            <Link
+              href="/auth/login"
+              className="text-lg hover:text-blue-400 transition"
+            >
+              Login
             </Link>
           )}
         </div>
@@ -99,30 +116,28 @@ export default function Navbar() {
           isMobileMenuOpen ? "block" : "hidden"
         } mt-4 px-6 py-4 bg-gray-700 rounded-lg`}
       >
-        {navLinks.map((link) => (
-          <Link legacyBehavior href={link.href} key={link.href}>
-            <a
-              onClick={toggleMobileMenu}
-              className={`block text-lg py-2 text-white hover:text-blue-400 transition ${
-                router.pathname === link.href ? "text-blue-400" : "text-white"
-              }`}
-            >
-              {link.label}
-            </a>
+        {filteredLinks.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={toggleMobileMenu}
+            className={`block text-lg py-2 hover:text-blue-400 transition ${
+              router.pathname === link.href ? "text-blue-400" : "text-white"
+            }`}
+          >
+            {link.label}
           </Link>
         ))}
 
-        {/* Conditionally render Profile or Login in mobile */}
         <div className="mt-4 border-t border-gray-600 pt-2">
           {session ? (
             <>
-              <Link legacyBehavior href="/profile">
-                <a
-                  onClick={toggleMobileMenu}
-                  className="block text-lg py-2 text-white hover:text-blue-400"
-                >
-                  My Profile
-                </a>
+              <Link
+                href="/profile"
+                onClick={toggleMobileMenu}
+                className="block text-lg py-2 text-white hover:text-blue-400"
+              >
+                My Profile
               </Link>
               <button
                 onClick={() => {
@@ -135,13 +150,12 @@ export default function Navbar() {
               </button>
             </>
           ) : (
-            <Link legacyBehavior href="/auth/login">
-              <a
-                onClick={toggleMobileMenu}
-                className="block text-lg py-2 text-white hover:text-blue-400"
-              >
-                Login
-              </a>
+            <Link
+              href="/auth/login"
+              onClick={toggleMobileMenu}
+              className="block text-lg py-2 text-white hover:text-blue-400"
+            >
+              Login
             </Link>
           )}
         </div>

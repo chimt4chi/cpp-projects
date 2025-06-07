@@ -1,6 +1,27 @@
 import Navbar from "@/components/Navbar";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (
+    !session
+    // (!session.user.role !== "admin" && !session.user.role !== "doctor")
+  ) {
+    return {
+      redirect: {
+        destination: "/unauthorized",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 
 export default function BookAppointment() {
   const { data: session } = useSession();

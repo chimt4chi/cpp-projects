@@ -5,10 +5,14 @@ import { getSession } from "next-auth/react";
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
-  if (!session) {
+  if (
+    !session ||
+    // (!session.user.role !== "admin" && !session.user.role !== "doctor")
+    (session.user.role !== "admin" && session.user.role !== "doctor")
+  ) {
     return {
       redirect: {
-        destination: "/auth/login",
+        destination: "/unauthorized",
         permanent: false,
       },
     };

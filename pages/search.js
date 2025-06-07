@@ -1,5 +1,26 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import { getSession } from "next-auth/react";
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (
+    !session ||
+    (session.user.role !== "admin" && session.user.role !== "doctor")
+  ) {
+    return {
+      redirect: {
+        destination: "/unauthorized",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 
 export default function SearchPatients() {
   const [query, setQuery] = useState("");

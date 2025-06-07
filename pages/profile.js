@@ -95,16 +95,30 @@ export default function Profile() {
         {/* User Info */}
         <section className="bg-white p-8 rounded-lg shadow-md mb-8">
           <div className="flex items-center space-x-6">
-            <img
-              src={session.user.image || "/default-profile-pic.jpg"}
-              alt="User Profile"
-              className="w-24 h-24 rounded-full object-cover"
-            />
+            {session.user.image ? (
+              <img
+                src={session.user.image}
+                alt="User Profile"
+                className="w-24 h-24 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-24 h-24 rounded-full bg-blue-100 flex items-center justify-center text-2xl font-semibold text-blue-600">
+                {session.user.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .slice(0, 2)
+                  .toUpperCase()}
+              </div>
+            )}
             <div>
               <h2 className="text-2xl font-semibold text-gray-800">
                 {session.user.name}
               </h2>
               <p className="text-lg text-gray-600">{session.user.email}</p>
+              <p className="mt-1 text-sm font-medium text-gray-500 bg-gray-100 inline-block px-3 py-1 rounded">
+                Role: {session.user.role || "User"}
+              </p>
             </div>
           </div>
         </section>

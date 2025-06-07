@@ -33,6 +33,7 @@ export const authOptions = {
           id: user._id.toString(), // Convert ObjectId to string
           email: user.email,
           name: user.name,
+          role: user.role, // ✅ Add this
         };
       },
     }),
@@ -43,6 +44,7 @@ export const authOptions = {
       // When user signs in, add their ID to the token
       if (user) {
         token.id = user.id;
+        token.role = user.role; // ✅ Add role to token
       }
       return token;
     },
@@ -50,6 +52,7 @@ export const authOptions = {
       // Add user ID from token to session
       if (token) {
         session.user.id = token.id;
+        session.user.role = token.role; // ✅ Add role to session
       }
       return session;
     },
